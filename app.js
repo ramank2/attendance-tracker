@@ -111,7 +111,26 @@ function countsFor(id,y,m0,m1){
 }
 function holidayCounts(y,m0,m1){
  let nh=0,fl=0,weekend=0,calendar=0;
- for(let m=m0;m<=m1;m++){const n=daysInMonth(y,m);for(let d=1;d<=n;d++){const dt=new Date(y,m,d),date=dateKey(y,m,d);calendar++;if(dt.getDay()===0||dt.getDay()===6)weekend++;const h=holidayFor(date);if(h?.type==="NH")nh++;if(h?.type==="FL")fl++;}}
+
+ for(let m=m0;m<=m1;m++){
+   const n=daysInMonth(y,m);
+
+   for(let d=1;d<=n;d++){
+     const dt=new Date(y,m,d);
+     const date=dateKey(y,m,d);
+
+     calendar++;
+
+     // Weekend = Sunday only
+     if(dt.getDay()===0) weekend++;
+
+     const h=holidayFor(date);
+
+     if(h?.type==="NH") nh++;
+     if(h?.type==="FL") fl++;
+   }
+ }
+
  return {nh,fl,weekend,calendar};
 }
 function presentEq(c){return (c.OP||0)+(c.CP||0)+(c.GP||0)+(c.WFH||0)+(c.LM||0)+(c.CO||0)+(c.HP||0)*.5}
