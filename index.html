@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Attendance Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1>Attendance Tracker</h1>
+    <p>Daily attendance • MTD • YTD • Calendar Year</p>
+  </div>
+  <div class="top-actions">
+    <button class="btn secondary" id="exportBtn">Export Backup</button>
+    <label class="btn secondary file-btn">Import Backup<input type="file" id="importFile" accept=".json"></label>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="attendance">Attendance</button>
+  <button class="tab" data-tab="summary">MTD / YTD Summary</button>
+  <button class="tab" data-tab="holidays">Holidays</button>
+  <button class="tab" data-tab="employees">Employees</button>
+</nav>
+
+<main>
+<section id="attendance" class="tab-panel active">
+  <div class="card controls">
+    <div class="field"><label>Month</label><select id="monthSelect"></select></div>
+    <div class="field"><label>Year</label><select id="yearSelect"></select></div>
+    <div class="field grow"><label>Quick filter</label><input id="empFilter" placeholder="Search ID / name / designation"></div>
+    <div class="control-buttons">
+      <button class="btn" id="fillWeekends">Fill Sundays as WL</button>
+      <button class="btn primary" id="saveMonth">Save Month</button>
+    </div>
+  </div>
+
+  <div class="legend card" id="legend"></div>
+
+  <div class="card table-card">
+    <div class="table-head">
+      <h2 id="monthTitle">Attendance</h2>
+      <span id="monthInfo"></span>
+    </div>
+    <div class="table-wrap">
+      <table id="attendanceTable"></table>
+    </div>
+  </div>
+</section>
+
+<section id="summary" class="tab-panel">
+  <div class="card controls">
+    <div class="field"><label>Summary Year</label><select id="summaryYear"></select></div>
+    <div class="field"><label>Summary Month</label><select id="summaryMonth"></select></div>
+    <div class="field grow"><label>Employee filter</label><input id="summaryFilter" placeholder="Search ID / name"></div>
+  </div>
+  <div class="summary-grid" id="kpis"></div>
+  <div class="card table-card">
+    <div class="table-head"><h2>Employee MTD / YTD</h2><span>MTD = selected month • YTD = 01 Jan–31 Dec</span></div>
+    <div class="table-wrap"><table id="summaryTable"></table></div>
+  </div>
+</section>
+
+<section id="holidays" class="tab-panel">
+  <div class="card">
+    <h2>Holiday Calendar</h2>
+    <p class="muted">National Holidays are fixed every year. Festival Holidays can be maintained year by year.</p>
+    <div class="controls">
+      <div class="field"><label>Holiday Year</label><select id="holidayYear"></select></div>
+      <div class="field"><label>Date</label><input type="date" id="holidayDate"></div>
+      <div class="field"><label>Type</label><select id="holidayType"><option value="NH">NH — National Holiday</option><option value="FL">FL — Festival Holiday</option></select></div>
+      <div class="field grow"><label>Holiday Name</label><input id="holidayName" placeholder="Holiday name"></div>
+      <button class="btn primary" id="addHoliday">Add Festival Holiday</button>
+    </div>
+  </div>
+  <div class="card table-card"><div class="table-head"><h2 id="holidayTitle">Holiday Calendar</h2><span>NH = fixed • FL = yearly maintainable</span></div><div class="table-wrap"><table id="holidayTable"></table></div></div>
+</section>
+
+<section id="employees" class="tab-panel">
+  <div class="card">
+    <h2>Employee Master</h2>
+    <p class="muted">Maintain Emp ID, Name and Designation here. Changes are used by all months and summaries.</p>
+    <div class="employee-form">
+      <input id="empId" placeholder="Emp ID e.g. AE27">
+      <input id="empName" placeholder="Name">
+      <input id="empDesignation" placeholder="Designation">
+      <button class="btn primary" id="addEmployee">Add / Update</button>
+    </div>
+  </div>
+  <div class="card table-card"><div class="table-wrap"><table id="employeeTable"></table></div></div>
+</section>
+</main>
+
+<footer>
+  <span>Attendance Tracker • 2026–2030</span>
+  <span>Data is stored in this browser. Use Export Backup regularly.</span>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
