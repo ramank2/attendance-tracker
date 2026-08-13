@@ -1,6 +1,17 @@
 const CONFIG={"employees": [["AE01", "Sonu Thakur", "BD Head"], ["AE02", "Amit Saraf", "CS Head"], ["AE03", "Jyoti Kumari", "Account"], ["AE04", "Sunil Sah", "Support Staff"], ["AE28", "Nitesh Kumar", "Support Staff"], ["AE30", "Shankar Das", "Support Staff"], ["AE07", "Vishwadeep Bhosale", "Admin"], ["AE08", "Omkar Patil", "Ops"], ["AE09", "Krishnakant Thakur", "Ops"], ["AE10", "Swati Rohi", "Jr. Designer"], ["AE11", "karan", "Support Staff"], ["AE12", "Ram Kumar", "Support Staff"], ["AE13", "Jagdish", "Support Staff"], ["AE14", "Janavi", "Trainee(designer)"], ["AE15", "Atharav", "Account"], ["AE16", "Umang", "Executive"], ["AE17", "Didi", ""], ["AE18", "", ""], ["AE19", "", ""], ["AE20", "", ""], ["AE21", "", ""], ["AE22", "", ""], ["AE23", "", ""], ["AE24", "", ""], ["AE25", "", ""], ["AE26", "", ""]], "statuses": [["OP", "Office Present"], ["HP", "Half Day Present"], ["PL", "Planned Leave"], ["SL", "Sick Leave"], ["UL", "Unplanned Leave"], ["CP", "Client Site Present"], ["CO", "Compensatory Off"], ["GP", "Godown / Warehouse Present"], ["LM", "Late Marked After 10.30am"], ["WFH", "Work From Home"], ["NH", "National Holiday"], ["FL", "Festival Holiday"], ["WL", "Weekend Leave"]], "years": [2026, 2027, 2028, 2029, 2030]};
 const KEY="attendanceTracker_v1";
-const state=JSON.parse(localStorage.getItem(KEY)||"null")||{employees:CONFIG.employees,attendance:{},holidays:[]};
+const normalizedEmployees=CONFIG.employees.map(e=>Array.isArray(e)?{id:e[0],name:e[1],designation:e[2]}:e);
+
+const state=JSON.parse(localStorage.getItem(KEY)||"null")||{
+  employees:normalizedEmployees,
+  attendance:{},
+  holidays:[]
+};
+
+if(!Array.isArray(state.employees) || !state.employees.length)
+  state.employees=normalizedEmployees;
+else
+  state.employees=state.employees.map(e=>Array.isArray(e)?{id:e[0],name:e[1],designation:e[2]}:e);
 const statusMap=Object.fromEntries(CONFIG.statuses.map(x=>[x[0],x[1]]));
 const codes=CONFIG.statuses.map(x=>x[0]);
 const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
