@@ -4,6 +4,6 @@
 // The anon/publishable key is intended for browser applications.
 // Do NOT put a service_role/secret key here.
 const SUPABASE_CONFIG = {
-  url: "https://uuoeolcuvzcbmfndkuq.supabase.co",
+  url: "https://uuoeolcuvzcbmftndkuq.supabase.co",
   anonKey: "sb_publishable_NwC431Nx6CyyF03NNStuSA_kHzjGcVI"
 };
